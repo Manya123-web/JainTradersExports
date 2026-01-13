@@ -10,99 +10,116 @@ const ContactFormSection: React.FC = () => {
     message: ''
   });
 
+  const [activeField, setActiveField] = useState<string | null>(null);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     alert('Inquiry sent successfully. Our trade desk will contact you soon.');
   };
 
-  const inputClass = "w-full bg-[#fdfdfd] border-2 border-gray-300 rounded-2xl py-6 px-8 focus:border-[#c5a059] outline-none transition-all text-2xl font-bold placeholder:text-gray-600 text-black serif";
+  const inputContainerClass = "relative mb-4";
+  const labelClass = (field: string) => `absolute left-4 transition-all duration-200 pointer-events-none text-[10px] font-black uppercase tracking-widest ${
+    activeField === field || formData[field as keyof typeof formData]
+      ? "-top-2 bg-white px-2 text-[#c5a059] z-10"
+      : "top-4 text-gray-400"
+  }`;
+
+  const inputClass = "w-full bg-white border border-gray-200 rounded-xl py-4 px-4 focus:border-[#c5a059] outline-none transition-all text-sm font-bold text-black serif";
 
   return (
-    <div className="bg-white p-14 md:p-20 rounded-[4rem] shadow-[0_80px_160px_rgba(0,0,0,0.15)] border border-gray-100 relative">
-      {/* Decorative Gold Corner */}
-      <div className="absolute -top-8 -right-8 w-32 h-32 bg-[#c5a059] rounded-[3rem] -z-10 rotate-12 opacity-40 shadow-2xl"></div>
-
-      <div className="mb-14">
-        <h3 className="text-6xl font-black serif text-black mb-4 italic leading-tight">Get in Touch</h3>
-        <p className="text-black text-2xl font-bold serif italic opacity-70">Direct Channel to Excellence</p>
+    <div className="bg-white p-8 md:p-12 rounded-[2.5rem] shadow-[0_30px_100px_rgba(0,0,0,0.08)] border border-gray-50 w-full max-w-lg">
+      <div className="mb-10">
+        <h3 className="text-3xl font-bold text-black serif italic mb-2">Get in Touch</h3>
+        <p className="text-gray-400 text-[10px] font-black uppercase tracking-widest">Global Partner Inquiries</p>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-10">
-        <div className="grid grid-cols-2 gap-8">
-          <input 
-            type="text" 
-            placeholder="First name"
-            className={inputClass}
-            required
-            value={formData.firstName}
-            onChange={e => setFormData({...formData, firstName: e.target.value})}
-          />
-          <input 
-            type="text" 
-            placeholder="Last name"
-            className={inputClass}
-            required
-            value={formData.lastName}
-            onChange={e => setFormData({...formData, lastName: e.target.value})}
-          />
+      <form onSubmit={handleSubmit} className="space-y-2">
+        <div className="grid grid-cols-2 gap-4">
+          <div className={inputContainerClass}>
+            <label className={labelClass('firstName')}>First Name</label>
+            <input 
+              type="text" 
+              className={inputClass}
+              required
+              onFocus={() => setActiveField('firstName')}
+              onBlur={() => setActiveField(null)}
+              value={formData.firstName}
+              onChange={e => setFormData({...formData, firstName: e.target.value})}
+            />
+          </div>
+          <div className={inputContainerClass}>
+            <label className={labelClass('lastName')}>Last Name</label>
+            <input 
+              type="text" 
+              className={inputClass}
+              required
+              onFocus={() => setActiveField('lastName')}
+              onBlur={() => setActiveField(null)}
+              value={formData.lastName}
+              onChange={e => setFormData({...formData, lastName: e.target.value})}
+            />
+          </div>
         </div>
         
-        <div className="relative">
-          <span className="absolute left-8 top-1/2 -translate-y-1/2 text-black">
-            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-          </span>
+        <div className={inputContainerClass}>
+          <label className={labelClass('email')}>Email Address</label>
           <input 
             type="email" 
-            placeholder="Your email address"
-            className={inputClass + " pl-20"}
+            className={inputClass}
             required
+            onFocus={() => setActiveField('email')}
+            onBlur={() => setActiveField(null)}
             value={formData.email}
             onChange={e => setFormData({...formData, email: e.target.value})}
           />
         </div>
 
-        <div className="flex gap-8">
-          <div className="w-48 relative">
-             <select className={inputClass + " appearance-none cursor-pointer pr-12"}>
-                <option>+91 (IN)</option>
-                <option>+1 (US)</option>
-                <option>+44 (UK)</option>
-                <option>+971 (UAE)</option>
+        <div className="flex gap-4">
+          <div className="w-24 relative mb-4">
+             <label className="absolute left-4 -top-2 bg-white px-2 text-[8px] font-black uppercase tracking-widest text-gray-400 z-10">Ext</label>
+             <select className={inputClass + " appearance-none cursor-pointer pr-10"}>
+                <option>+91</option>
+                <option>+1</option>
+                <option>+44</option>
              </select>
-             <svg className="w-6 h-6 absolute right-8 top-1/2 -translate-y-1/2 text-black pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"/></svg>
+             <svg className="w-3 h-3 absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"/></svg>
           </div>
-          <input 
-            type="tel" 
-            placeholder="Phone number"
-            className={inputClass}
-            required
-            value={formData.phone}
-            onChange={e => setFormData({...formData, phone: e.target.value})}
-          />
+          <div className={inputContainerClass + " flex-1"}>
+            <label className={labelClass('phone')}>Phone Number</label>
+            <input 
+              type="tel" 
+              className={inputClass}
+              required
+              onFocus={() => setActiveField('phone')}
+              onBlur={() => setActiveField(null)}
+              value={formData.phone}
+              onChange={e => setFormData({...formData, phone: e.target.value})}
+            />
+          </div>
         </div>
 
-        <div>
+        <div className={inputContainerClass}>
+          <label className={labelClass('message')}>Requirements</label>
           <textarea 
-            rows={5}
-            placeholder="Describe your requirements in detail..."
+            rows={4}
             className={inputClass + " resize-none"}
             required
+            onFocus={() => setActiveField('message')}
+            onBlur={() => setActiveField(null)}
             value={formData.message}
             onChange={e => setFormData({...formData, message: e.target.value})}
           />
-          <p className="text-sm text-right text-black mt-6 tracking-widest font-black uppercase opacity-60">Strictly Confidential Sourcing Dialogue</p>
         </div>
 
         <button 
           type="submit"
-          className="group relative w-full py-9 bg-black text-white font-black uppercase tracking-[0.7em] text-sm rounded-[2rem] overflow-hidden transition-all shadow-2xl hover:bg-[#c5a059] active:scale-95"
+          className="w-full py-5 bg-black text-white font-black uppercase tracking-[0.4em] text-[10px] rounded-xl hover:bg-[#c5a059] transition-all shadow-xl active:scale-95"
         >
-          <span className="relative z-10">Initiate Dialogue</span>
-          <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+          Submit Inquiry
         </button>
 
-        <p className="text-xs text-black text-center px-8 leading-relaxed font-black tracking-widest uppercase opacity-90">
-          Global Partners trust Jain Traders for <span className="text-black border-b-4 border-[#c5a059]">Transparent Trade</span> and <span className="text-black border-b-4 border-[#c5a059]">Reliable Supply</span>
+        <p className="text-[9px] text-gray-400 text-center uppercase font-black tracking-widest mt-6">
+          © Secure Trade Access Point
         </p>
       </form>
     </div>
