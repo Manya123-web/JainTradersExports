@@ -25,11 +25,10 @@ const MapSection: React.FC = () => {
       <div
         className="
           absolute z-20
-          top-4 sm:top-6 md:top-8
-          left-1/2 md:left-6 lg:left-8
-          -translate-x-1/2 md:translate-x-0
-          w-[92%] sm:w-[85%] md:w-[320px]
-          max-w-[360px]
+          top-3 sm:top-4 md:top-5
+          left-3 sm:left-4 md:left-5
+          w-[calc(100%-1.5rem)] sm:w-[280px] md:w-[300px] lg:w-[320px]
+          max-w-[320px]
         "
       >
         <div className="bg-white p-5 md:p-6 lg:p-8 rounded-xl md:rounded-2xl lg:rounded-[2rem] border border-gray-100 shadow-[0_20px_40px_rgba(0,0,0,0.15)] transition-transform duration-300 hover:scale-[1.03]">
