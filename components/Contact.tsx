@@ -1,268 +1,7 @@
+
 import React, { useState } from 'react';
-
-const ContactFormSection: React.FC = () => {
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    countryCode: '+91',
-    phone: '',
-    message: ''
-  });
-
-  const [errors, setErrors] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    phone: '',
-    message: ''
-  });
-
-  const validateEmail = (email: string) => {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(email);
-  };
-
-  const validatePhone = (phone: string) => {
-    const re = /^[0-9]{10,15}$/;
-    return re.test(phone);
-  };
-
-  const validateField = (name: string, value: string) => {
-    let error = '';
-    
-    switch(name) {
-      case 'firstName':
-      case 'lastName':
-        if (!value.trim()) {
-          error = 'Required';
-        } else if (value.length < 2) {
-          error = 'Min 2 characters';
-        }
-        break;
-      case 'email':
-        if (!value.trim()) {
-          error = 'Email required';
-        } else if (!validateEmail(value)) {
-          error = 'Invalid email';
-        }
-        break;
-      case 'phone':
-        if (!value.trim()) {
-          error = 'Phone required';
-        } else if (!validatePhone(value)) {
-          error = 'Invalid phone (10-15 digits)';
-        }
-        break;
-      case 'message':
-        if (!value.trim()) {
-          error = 'Message required';
-        } else if (value.length < 10) {
-          error = 'Min 10 characters';
-        }
-        break;
-    }
-    
-    setErrors(prev => ({ ...prev, [name]: error }));
-    return error === '';
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-    
-    if (errors[name as keyof typeof errors]) {
-      validateField(name, value);
-    }
-  };
-
-  const handleBlur = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    validateField(name, value);
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    const fields = ['firstName', 'lastName', 'email', 'phone', 'message'];
-    let isValid = true;
-    
-    fields.forEach(field => {
-      if (!validateField(field, formData[field as keyof typeof formData] as string)) {
-        isValid = false;
-      }
-    });
-    
-    if (isValid) {
-      const subject = encodeURIComponent('New Inquiry from Jain Traders Website');
-      const body = encodeURIComponent(
-        `New Contact Form Submission\n\n` +
-        `Name: ${formData.firstName} ${formData.lastName}\n` +
-        `Email: ${formData.email}\n` +
-        `Phone: ${formData.countryCode} ${formData.phone}\n\n` +
-        `Requirements:\n${formData.message}\n\n` +
-        `---\n` +
-        `This inquiry was submitted through the Jain Traders contact form.`
-      );
-      
-      window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=Raja.lodha6261@gmail.com&su=${subject}&body=${body}`, '_blank');
-    }
-  };
-
-  return (
-    <div className="bg-white border border-gray-100 rounded-3xl p-6 md:p-8 lg:p-10 shadow-[0_20px_60px_rgba(0,0,0,0.05)]">
-      <h3 className="text-2xl md:text-3xl font-bold text-[#1a1a1a] mb-2 serif">Get in Touch</h3>
-      <p className="text-gray-500 text-sm md:text-base mb-6 md:mb-8">Direct Channel to Excellence</p>
-      
-      <div className="space-y-5 md:space-y-6">
-        <div className="grid grid-cols-2 gap-4">
-          <div className="relative">
-            <input
-              type="text"
-              id="firstName"
-              name="firstName"
-              value={formData.firstName}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              className={`w-full bg-transparent border-2 ${errors.firstName ? 'border-red-400' : 'border-gray-100'} rounded-xl px-4 py-3 md:py-4 text-[#1a1a1a] placeholder-transparent peer focus:border-[#c5a059] transition-all duration-200 outline-none`}
-              placeholder="First name"
-            />
-            <label 
-              htmlFor="firstName"
-              className="absolute left-4 top-3.5 md:top-4.5 text-sm md:text-base text-gray-400 transition-all duration-200 ease-in-out pointer-events-none 
-                         peer-focus:-top-2.5 peer-focus:text-xs peer-focus:bg-white peer-focus:px-2 peer-focus:text-[#c5a059] 
-                         peer-[:not(:placeholder-shown)]:-top-2.5 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:bg-white peer-[:not(:placeholder-shown)]:px-2"
-            >
-              First name
-            </label>
-            {errors.firstName && <p className="text-red-500 text-[10px] mt-1 ml-1">{errors.firstName}</p>}
-          </div>
-
-          <div className="relative">
-            <input
-              type="text"
-              id="lastName"
-              name="lastName"
-              value={formData.lastName}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              className={`w-full bg-transparent border-2 ${errors.lastName ? 'border-red-400' : 'border-gray-100'} rounded-xl px-4 py-3 md:py-4 text-[#1a1a1a] placeholder-transparent peer focus:border-[#c5a059] transition-all duration-200 outline-none`}
-              placeholder="Last name"
-            />
-            <label 
-              htmlFor="lastName"
-              className="absolute left-4 top-3.5 md:top-4.5 text-sm md:text-base text-gray-400 transition-all duration-200 ease-in-out pointer-events-none 
-                         peer-focus:-top-2.5 peer-focus:text-xs peer-focus:bg-white peer-focus:px-2 peer-focus:text-[#c5a059] 
-                         peer-[:not(:placeholder-shown)]:-top-2.5 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:bg-white peer-[:not(:placeholder-shown)]:px-2"
-            >
-              Last name
-            </label>
-            {errors.lastName && <p className="text-red-500 text-[10px] mt-1 ml-1">{errors.lastName}</p>}
-          </div>
-        </div>
-
-        <div className="relative">
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            className={`w-full bg-transparent border-2 ${errors.email ? 'border-red-400' : 'border-gray-100'} rounded-xl px-4 py-3 md:py-4 text-[#1a1a1a] placeholder-transparent peer focus:border-[#c5a059] transition-all duration-200 outline-none`}
-            placeholder="Your email address"
-          />
-          <label 
-            htmlFor="email"
-            className="absolute left-4 top-3.5 md:top-4.5 text-sm md:text-base text-gray-400 transition-all duration-200 ease-in-out pointer-events-none 
-                       peer-focus:-top-2.5 peer-focus:text-xs peer-focus:bg-white peer-focus:px-2 peer-focus:text-[#c5a059] 
-                       peer-[:not(:placeholder-shown)]:-top-2.5 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:bg-white peer-[:not(:placeholder-shown)]:px-2"
-          >
-            Your email address
-          </label>
-          {errors.email && <p className="text-red-500 text-[10px] mt-1 ml-1">{errors.email}</p>}
-        </div>
-
-        <div className="grid grid-cols-3 gap-4">
-          <div className="relative col-span-1">
-            <select 
-              name="countryCode"
-              value={formData.countryCode}
-              onChange={handleChange}
-              className="w-full bg-transparent border-2 border-gray-100 rounded-xl px-3 py-3 md:py-4 text-[#1a1a1a] focus:border-[#c5a059] transition-all duration-200 outline-none appearance-none cursor-pointer"
-            >
-              <option value="+91">+91 (IN)</option>
-              <option value="+1">+1 (US)</option>
-              <option value="+44">+44 (UK)</option>
-            </select>
-            <svg className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"/>
-            </svg>
-          </div>
-
-          <div className="relative col-span-2">
-            <input
-              type="tel"
-              id="phone"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              className={`w-full bg-transparent border-2 ${errors.phone ? 'border-red-400' : 'border-gray-100'} rounded-xl px-4 py-3 md:py-4 text-[#1a1a1a] placeholder-transparent peer focus:border-[#c5a059] transition-all duration-200 outline-none`}
-              placeholder="Phone number"
-            />
-            <label 
-              htmlFor="phone"
-              className="absolute left-4 top-3.5 md:top-4.5 text-sm md:text-base text-gray-400 transition-all duration-200 ease-in-out pointer-events-none 
-                         peer-focus:-top-2.5 peer-focus:text-xs peer-focus:bg-white peer-focus:px-2 peer-focus:text-[#c5a059] 
-                         peer-[:not(:placeholder-shown)]:-top-2.5 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:bg-white peer-[:not(:placeholder-shown)]:px-2"
-            >
-              Phone number
-            </label>
-            {errors.phone && <p className="text-red-500 text-[10px] mt-1 ml-1">{errors.phone}</p>}
-          </div>
-        </div>
-
-        <div className="relative">
-          <textarea
-            id="message"
-            name="message"
-            rows={4}
-            value={formData.message}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            className={`w-full bg-transparent border-2 ${errors.message ? 'border-red-400' : 'border-gray-100'} rounded-xl px-4 py-3 md:py-4 text-[#1a1a1a] placeholder-transparent peer focus:border-[#c5a059] transition-all duration-200 outline-none resize-none`}
-            placeholder="Describe your requirements"
-          />
-          <label 
-            htmlFor="message"
-            className="absolute left-4 top-3.5 md:top-4.5 text-sm md:text-base text-gray-400 transition-all duration-200 ease-in-out pointer-events-none 
-                       peer-focus:-top-2.5 peer-focus:text-xs peer-focus:bg-white peer-focus:px-2 peer-focus:text-[#c5a059] 
-                       peer-[:not(:placeholder-shown)]:-top-2.5 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:bg-white peer-[:not(:placeholder-shown)]:px-2"
-          >
-            Describe your requirements
-          </label>
-          {errors.message && <p className="text-red-500 text-[10px] mt-1 ml-1">{errors.message}</p>}
-        </div>
-
-        <button
-          onClick={handleSubmit}
-          type="button"
-          className="w-full py-4 md:py-5 bg-[#1a1a1a] hover:bg-[#c5a059] text-white font-black text-xs md:text-sm uppercase tracking-[0.3em] rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-[1.01] flex items-center justify-center gap-3"
-        >
-          <span>Initiate Dialogue</span>
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
-          </svg>
-        </button>
-
-        <p className="text-center text-[10px] text-gray-400 uppercase tracking-widest font-bold">
-          Strictly Confidential Sourcing Dialogue
-        </p>
-      </div>
-    </div>
-  );
-};
+import MapSection from './MapSection';
+import ContactFormSection from './ContactFormSection';
 
 
 const FAQItem: React.FC<{ question: string; answer: string }> = ({ question, answer }) => {
@@ -361,6 +100,46 @@ const Contact: React.FC = () => {
             {/* Right Content - Form */}
             <div className="w-full max-w-xl mx-auto lg:mx-0">
               <ContactFormSection />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Map Section - Adjusted Height and Width Ratio */}
+      <section className="py-16 md:py-24 bg-white">
+        <div className="max-w-[1440px] mx-auto px-4 md:px-6">
+          <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+            {/* Wider Map Section with lesser height */}
+            <div className="lg:col-span-7 relative h-[450px] md:h-[550px] rounded-3xl overflow-hidden shadow-[0_30px_60px_rgba(0,0,0,0.08)] border border-gray-100">
+              <MapSection />
+            </div>
+            
+            {/* Narrower Content Section beside the map */}
+            <div className="lg:col-span-5 flex flex-col justify-center px-4 lg:px-8">
+              <span className="text-[#c5a059] uppercase tracking-[0.3em] md:tracking-[0.5em] text-[11px] font-black mb-4 md:mb-6 block">Global Presence</span>
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold serif text-[#1a1a1a] mb-6 md:mb-10 leading-none">Heritage <br />Headquarters.</h2>
+              
+              <div className="space-y-8 md:space-y-10">
+                <div className="group">
+                  <h4 className="text-xl md:text-2xl font-bold text-[#1a1a1a] mb-4 md:mb-5 serif border-b border-[#c5a059]/20 pb-2 inline-block">Registered Office</h4>
+                  <div className="text-gray-600 text-lg md:text-xl font-medium leading-relaxed space-y-1">
+                    <p className="text-[#1a1a1a]">Jain Traders</p>
+                    <p>Parpodi, Main Market Area</p>
+                    <p>Bemetara, Chhattisgarh 491993</p>
+                    <p className="font-bold text-[#c5a059] mt-2">India</p>
+                  </div>
+                </div>
+                
+                <div className="flex gap-5 md:gap-6 items-center bg-[#fcfcfc] p-6 md:p-8 rounded-3xl border border-gray-100 shadow-sm">
+                  <div className="w-12 h-12 md:w-14 md:h-14 flex-shrink-0 rounded-full bg-white flex items-center justify-center text-[#c5a059] shadow-inner border border-gray-50">
+                    <svg className="w-6 h-6 md:w-7 md:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                  </div>
+                  <div>
+                    <h4 className="text-base md:text-lg font-bold text-[#1a1a1a] mb-0.5 serif">Availability</h4>
+                    <p className="text-gray-500 text-sm md:text-base font-medium">Mon-Sat: 09:00 — 18:00 IST</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
