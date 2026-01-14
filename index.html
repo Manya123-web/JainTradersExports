@@ -31,12 +31,6 @@
             border-radius: 4px;
         }
         
-        /* Nav Marker Tooltips */
-        .nav-marker:hover .nav-label {
-            opacity: 1;
-            transform: translateX(-10px);
-        }
-
         @keyframes pulse-gold {
             0% { transform: scale(1); opacity: 0.3; }
             50% { transform: scale(1.05); opacity: 0.6; }
@@ -47,24 +41,21 @@
         }
         
         @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(40px); }
+            from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
         .animate-reveal {
             animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        .section-nav-line {
-            background: linear-gradient(to bottom, transparent, #22c55e, transparent);
-        }
-
-        /* Image Hover Color to B&W */
-        .img-hover-bw {
-            transition: filter 0.8s ease, transform 1s ease;
-        }
-        .img-hover-bw:hover {
+        /* B&W to Color Transition */
+        .img-bw-to-color {
             filter: grayscale(100%);
-            transform: scale(1.05);
+            transition: filter 1.2s cubic-bezier(0.4, 0, 0.2, 1), transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .img-bw-to-color:hover {
+            filter: grayscale(0%);
+            transform: scale(1.02);
         }
     </style>
 <script type="importmap">
