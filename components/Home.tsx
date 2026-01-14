@@ -27,7 +27,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 7000);
+    }, 5000);
     return () => clearInterval(timer);
   }, []);
 
@@ -118,7 +118,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
             <div className="absolute inset-0 overflow-hidden">
                 <div 
                   className={`absolute inset-0 bg-cover bg-center transition-transform duration-[12000ms] ease-linear ${
-                    index === currentSlide ? 'scale-110' : 'scale-100'
+                    index === currentSlide ? 'scale-110 md:scale-105' : 'scale-100'
                   }`}
                   style={{ backgroundImage: `url('${slide.url}')` }}
                 />
