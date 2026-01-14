@@ -1,6 +1,4 @@
-
 import React, { useState, useEffect } from 'react';
-import tradeImg from '../assets/images/homePg.jpg';
 
 interface HomeProps {
   onNavigate: (page: 'home' | 'about' | 'contact') => void;
@@ -130,22 +128,22 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
             
             {/* Stable Content - Typography adjusted for laptop screen height */}
             <div className="relative z-20 h-full flex flex-col items-center justify-center text-center px-6 transform-none">
-              <div className={`mb-4 transition-all duration-[1200ms] delay-300 ${index === currentSlide ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+              <div className={`mb-4 transition-all duration-[1200ms] delay-300 ${index === currentSlide ? 'opacity-100 md:opacity-100 translate-y-0' : 'opacity-0 md:opacity-100 translate-y-6 md:translate-y-0'}`}>
                 <span className="text-[#c5a059] uppercase tracking-[0.8em] text-[10px] md:text-[11px] font-black bg-black/50 backdrop-blur-md py-3 px-8 md:px-10 border border-[#c5a059]/40 rounded-sm inline-block">
                   {slide.tagline}
                 </span>
               </div>
               
-              <h2 className={`text-4xl md:text-7xl lg:text-8xl xl:text-[10rem] text-white font-bold mb-4 md:mb-6 leading-[1] md:leading-[0.9] serif drop-shadow-2xl transition-all duration-[1500ms] delay-500 ${index === currentSlide ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
+              <h2 className={`text-4xl md:text-7xl lg:text-7xl xl:text-8xl text-white font-bold mb-4 md:mb-6 leading-[1] md:leading-[0.9] serif drop-shadow-2xl transition-all duration-[1500ms] delay-500 ${index === currentSlide ? 'opacity-100 md:opacity-100 translate-y-0' : 'opacity-0 md:opacity-100 translate-y-12 md:translate-y-0'}`}>
                 {slide.title.split(' ')[0]} <br />
                 <span className="italic font-normal text-[#c5a059]">{slide.title.split(' ').slice(1).join(' ')}</span>
               </h2>
               
-              <p className={`text-white/80 text-sm md:text-lg lg:text-xl font-light tracking-[0.1em] max-w-2xl mb-8 md:mb-12 transition-all duration-[1800ms] delay-700 ${index === currentSlide ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+              <p className={`text-white/80 text-sm md:text-lg lg:text-xl font-light tracking-[0.1em] max-w-2xl mb-8 md:mb-12 transition-all duration-[1800ms] delay-700 ${index === currentSlide ? 'opacity-100 md:opacity-100 translate-y-0' : 'opacity-0 md:opacity-100 translate-y-8 md:translate-y-0'}`}>
                 {slide.subtitle}
               </p>
               
-              <div className={`transition-all duration-[2000ms] delay-[900ms] ${index === currentSlide ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+              <div className={`transition-all duration-[2000ms] delay-[900ms] ${index === currentSlide ? 'opacity-100 md:opacity-100 translate-y-0' : 'opacity-0 md:opacity-100 translate-y-6 md:translate-y-0'}`}>
                 <button 
                   onClick={() => onNavigate('contact')}
                   className="px-10 md:px-14 py-4 md:py-5 bg-[#c5a059] text-white text-[10px] md:text-[11px] uppercase tracking-[0.5em] font-black hover:bg-white hover:text-black transition-all rounded-sm shadow-[0_20px_50px_rgba(197,160,89,0.3)]"
@@ -198,25 +196,25 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
                   </div>
 
                   {/* Back Side */}
-                  <div className="absolute inset-0 h-full w-full rounded-[2.5rem] bg-white border border-gray-100 shadow-2xl p-10 [backface-visibility:hidden] [transform:rotateY(180deg)] flex flex-col justify-center">
-                    <div className="mb-6">
-                      <h4 className="text-2xl font-bold serif italic text-[#1a1a1a] mb-2">{rice.type}</h4>
+                  <div className="absolute inset-0 h-full w-full rounded-[2.5rem] bg-white border border-gray-100 shadow-2xl p-6 md:p-10 [backface-visibility:hidden] [transform:rotateY(180deg)] flex flex-col justify-center overflow-y-auto">
+                    <div className="mb-4 md:mb-6">
+                      <h4 className="text-xl md:text-2xl font-bold serif italic text-[#1a1a1a] mb-2">{rice.type}</h4>
                       <div className="w-12 h-[2px] bg-[#c5a059]"></div>
                     </div>
                     
-                    <ul className="space-y-4">
+                    <ul className="space-y-3 md:space-y-4 mb-6 md:mb-8">
                       {rice.features.map((feature, fIdx) => (
-                        <li key={fIdx} className="flex gap-4 items-start">
+                        <li key={fIdx} className="flex gap-3 md:gap-4 items-start">
                           <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#c5a059] flex-shrink-0" />
-                          <span className="text-[13px] font-medium leading-relaxed text-gray-600">
+                          <span className="text-xs md:text-[13px] font-medium leading-relaxed text-gray-600">
                             {feature}
                           </span>
                         </li>
                       ))}
                     </ul>
 
-                    <div className="mt-8 pt-6 border-t border-gray-50">
-                       <button onClick={() => onNavigate('contact')} className="text-[10px] font-black uppercase tracking-[0.4em] text-[#c5a059] hover:text-[#1a1a1a] transition-all">
+                    <div className="mt-auto pt-4 md:pt-6 border-t border-gray-50">
+                       <button onClick={() => onNavigate('contact')} className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.4em] text-[#c5a059] hover:text-[#1a1a1a] transition-all">
                          Inquire Bulk Trade
                        </button>
                     </div>
@@ -274,7 +272,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
             <div className="relative lg:sticky lg:top-32">
               <div className="aspect-[16/9] md:aspect-[4/3] lg:aspect-[4/5] overflow-hidden rounded-[3rem] md:rounded-[4rem] shadow-2xl group cursor-crosshair border border-white/5 bg-[#1a1a1a]">
                 <img 
-                  src={tradeImg}
+                  src="https://images.unsplash.com/photo-1586201375761-83865001e31c?q=80&w=2070"
                   alt="Global Supply Chain Logistics Network" 
                   className="w-full h-full object-cover opacity-90 transition-transform duration-700 group-hover:scale-105"
                 />
