@@ -21,35 +21,34 @@ const MapSection: React.FC = () => {
         />
       </div>
 
-      {/* Floating Custom Card */}
+      {/* Floating Custom Card - Overlapping Google's default popup */}
       <div
         className="
-          absolute z-20
-          top-3 sm:top-4 md:top-5
-          left-3 sm:left-4 md:left-5
-          w-[calc(100%-1.5rem)] sm:w-[280px] md:w-[300px] lg:w-[320px]
-          max-w-[320px]
+          absolute z-[9999]
+          top-2 sm:top-3 md:top-4
+          left-2 sm:left-3 md:left-4
+          w-[260px] sm:w-[280px] md:w-[300px]
         "
       >
-        <div className="bg-white p-5 md:p-6 lg:p-8 rounded-xl md:rounded-2xl lg:rounded-[2rem] border border-gray-100 shadow-[0_20px_40px_rgba(0,0,0,0.15)] transition-transform duration-300 hover:scale-[1.03]">
+        <div className="bg-white p-4 md:p-5 rounded-lg md:rounded-xl border border-gray-200 shadow-[0_8px_24px_rgba(0,0,0,0.12)] transition-transform duration-300 hover:scale-[1.02]">
           {/* Header */}
-          <div className="flex items-center gap-4 mb-5">
-            <div className="w-12 h-12 bg-[#1a1a1a] rounded-xl flex items-center justify-center text-[#c5a059] serif italic text-2xl font-bold shadow-md">
+          <div className="flex items-center gap-3 mb-3">
+            <div className="w-10 h-10 bg-[#1a1a1a] rounded-lg flex items-center justify-center text-[#c5a059] serif italic text-xl font-bold shadow-sm">
               J
             </div>
-            <div className="min-w-0">
-              <h4 className="font-bold text-[#1a1a1a] truncate">
+            <div className="min-w-0 flex-1">
+              <h4 className="font-bold text-sm text-[#1a1a1a] truncate">
                 Jain Traders
               </h4>
-              <p className="text-[11px] uppercase tracking-[0.15em] font-black text-[#c5a059] truncate">
+              <p className="text-[10px] uppercase tracking-[0.15em] font-black text-[#c5a059] truncate">
                 Quality that ships
               </p>
             </div>
           </div>
 
           {/* Address */}
-          <div className="border-l-2 border-[#c5a059] pl-4 mb-6 space-y-1 text-sm font-medium text-gray-800">
-            <p className="uppercase tracking-widest text-[11px] font-bold text-[#1a1a1a]">
+          <div className="border-l-2 border-[#c5a059] pl-3 mb-3 space-y-0.5 text-xs font-medium text-gray-700">
+            <p className="uppercase tracking-wide text-[10px] font-bold text-[#1a1a1a]">
               Parpodi Facility
             </p>
             <p>Main Market Area</p>
@@ -61,11 +60,11 @@ const MapSection: React.FC = () => {
             href={mapsUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full flex items-center justify-center gap-3 py-4 bg-[#1a1a1a] text-white text-[11px] uppercase tracking-[0.25em] font-black rounded-xl hover:bg-[#c5a059] transition-all duration-300"
+            className="w-full flex items-center justify-center gap-2 py-2.5 bg-[#1a1a1a] text-white text-[10px] uppercase tracking-[0.2em] font-black rounded-lg hover:bg-[#c5a059] transition-all duration-300 group"
           >
             <span>Navigate Now</span>
             <svg
-              className="w-4 h-4 transition-transform group-hover:translate-x-1"
+              className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
