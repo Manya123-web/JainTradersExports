@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 
 const ContactFormSection: React.FC = () => {
@@ -6,23 +5,108 @@ const ContactFormSection: React.FC = () => {
     firstName: '',
     lastName: '',
     email: '',
-    ext: '+91',
+    countryCode: '+91',
     phone: '',
     message: ''
   });
 
+  const [errors, setErrors] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    message: ''
+  });
+
+  const validateEmail = (email: string) => {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+  };
+
+  const validatePhone = (phone: string) => {
+    const re = /^[0-9]{10,15}$/;
+    return re.test(phone);
+  };
+
+  const validateField = (name: string, value: string) => {
+    let error = '';
+    
+    switch(name) {
+      case 'firstName':
+      case 'lastName':
+        if (!value.trim()) {
+          error = 'Required';
+        } else if (value.length < 2) {
+          error = 'Min 2 characters';
+        }
+        break;
+      case 'email':
+        if (!value.trim()) {
+          error = 'Email required';
+        } else if (!validateEmail(value)) {
+          error = 'Invalid email';
+        }
+        break;
+      case 'phone':
+        if (!value.trim()) {
+          error = 'Phone required';
+        } else if (!validatePhone(value)) {
+          error = 'Invalid phone (10-15 digits)';
+        }
+        break;
+      case 'message':
+        if (!value.trim()) {
+          error = 'Message required';
+        } else if (value.length < 10) {
+          error = 'Min 10 characters';
+        }
+        break;
+    }
+    
+    setErrors(prev => ({ ...prev, [name]: error }));
+    return error === '';
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+    
+    if (errors[name as keyof typeof errors]) {
+      validateField(name, value);
+    }
+  };
+
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    validateField(name, value);
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const subject = encodeURIComponent(`Trade Inquiry from ${formData.firstName} ${formData.lastName}`);
-    const body = encodeURIComponent(
-      `Name: ${formData.firstName} ${formData.lastName}\n` +
-      `Email: ${formData.email}\n` +
-      `Phone: ${formData.ext} ${formData.phone}\n\n` +
-      `Requirements:\n${formData.message}`
-    );
     
-    // Redirecting to mailto for direct client-side email submission
-    window.location.href = `mailto:Raja.lodha6261@gmail.com?subject=${subject}&body=${body}`;
+    const fields = ['firstName', 'lastName', 'email', 'phone', 'message'];
+    let isValid = true;
+    
+    fields.forEach(field => {
+      if (!validateField(field, formData[field as keyof typeof formData] as string)) {
+        isValid = false;
+      }
+    });
+    
+    if (isValid) {
+      const subject = encodeURIComponent('New Inquiry from Jain Traders Website');
+      const body = encodeURIComponent(
+        `New Contact Form Submission\n\n` +
+        `Name: ${formData.firstName} ${formData.lastName}\n` +
+        `Email: ${formData.email}\n` +
+        `Phone: ${formData.countryCode} ${formData.phone}\n\n` +
+        `Requirements:\n${formData.message}\n\n` +
+        `---\n` +
+        `This inquiry was submitted through the Jain Traders contact form.`
+      );
+      
+      window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=Raja.lodha6261@gmail.com&su=${subject}&body=${body}`, '_blank');
+    }
   };
 
   return (
@@ -30,17 +114,18 @@ const ContactFormSection: React.FC = () => {
       <h3 className="text-2xl md:text-3xl font-bold text-[#1a1a1a] mb-2 serif">Get in Touch</h3>
       <p className="text-gray-500 text-sm md:text-base mb-6 md:mb-8">Direct Channel to Excellence</p>
       
-      <form onSubmit={handleSubmit} className="space-y-5 md:space-y-6">
+      <div className="space-y-5 md:space-y-6">
         <div className="grid grid-cols-2 gap-4">
           <div className="relative">
             <input
               type="text"
               id="firstName"
+              name="firstName"
               value={formData.firstName}
-              onChange={(e) => setFormData({...formData, firstName: e.target.value})}
-              className="w-full bg-transparent border-2 border-gray-100 rounded-xl px-4 py-3 md:py-4 text-[#1a1a1a] placeholder-transparent peer focus:border-[#c5a059] transition-all duration-200 outline-none"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              className={`w-full bg-transparent border-2 ${errors.firstName ? 'border-red-400' : 'border-gray-100'} rounded-xl px-4 py-3 md:py-4 text-[#1a1a1a] placeholder-transparent peer focus:border-[#c5a059] transition-all duration-200 outline-none`}
               placeholder="First name"
-              required
             />
             <label 
               htmlFor="firstName"
@@ -50,17 +135,19 @@ const ContactFormSection: React.FC = () => {
             >
               First name
             </label>
+            {errors.firstName && <p className="text-red-500 text-[10px] mt-1 ml-1">{errors.firstName}</p>}
           </div>
 
           <div className="relative">
             <input
               type="text"
               id="lastName"
+              name="lastName"
               value={formData.lastName}
-              onChange={(e) => setFormData({...formData, lastName: e.target.value})}
-              className="w-full bg-transparent border-2 border-gray-100 rounded-xl px-4 py-3 md:py-4 text-[#1a1a1a] placeholder-transparent peer focus:border-[#c5a059] transition-all duration-200 outline-none"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              className={`w-full bg-transparent border-2 ${errors.lastName ? 'border-red-400' : 'border-gray-100'} rounded-xl px-4 py-3 md:py-4 text-[#1a1a1a] placeholder-transparent peer focus:border-[#c5a059] transition-all duration-200 outline-none`}
               placeholder="Last name"
-              required
             />
             <label 
               htmlFor="lastName"
@@ -70,6 +157,7 @@ const ContactFormSection: React.FC = () => {
             >
               Last name
             </label>
+            {errors.lastName && <p className="text-red-500 text-[10px] mt-1 ml-1">{errors.lastName}</p>}
           </div>
         </div>
 
@@ -77,11 +165,12 @@ const ContactFormSection: React.FC = () => {
           <input
             type="email"
             id="email"
+            name="email"
             value={formData.email}
-            onChange={(e) => setFormData({...formData, email: e.target.value})}
-            className="w-full bg-transparent border-2 border-gray-100 rounded-xl px-4 py-3 md:py-4 text-[#1a1a1a] placeholder-transparent peer focus:border-[#c5a059] transition-all duration-200 outline-none"
+            onChange={handleChange}
+            onBlur={handleBlur}
+            className={`w-full bg-transparent border-2 ${errors.email ? 'border-red-400' : 'border-gray-100'} rounded-xl px-4 py-3 md:py-4 text-[#1a1a1a] placeholder-transparent peer focus:border-[#c5a059] transition-all duration-200 outline-none`}
             placeholder="Your email address"
-            required
           />
           <label 
             htmlFor="email"
@@ -91,13 +180,15 @@ const ContactFormSection: React.FC = () => {
           >
             Your email address
           </label>
+          {errors.email && <p className="text-red-500 text-[10px] mt-1 ml-1">{errors.email}</p>}
         </div>
 
         <div className="grid grid-cols-3 gap-4">
           <div className="relative col-span-1">
             <select 
-              value={formData.ext}
-              onChange={(e) => setFormData({...formData, ext: e.target.value})}
+              name="countryCode"
+              value={formData.countryCode}
+              onChange={handleChange}
               className="w-full bg-transparent border-2 border-gray-100 rounded-xl px-3 py-3 md:py-4 text-[#1a1a1a] focus:border-[#c5a059] transition-all duration-200 outline-none appearance-none cursor-pointer"
             >
               <option value="+91">+91 (IN)</option>
@@ -113,11 +204,12 @@ const ContactFormSection: React.FC = () => {
             <input
               type="tel"
               id="phone"
+              name="phone"
               value={formData.phone}
-              onChange={(e) => setFormData({...formData, phone: e.target.value})}
-              className="w-full bg-transparent border-2 border-gray-100 rounded-xl px-4 py-3 md:py-4 text-[#1a1a1a] placeholder-transparent peer focus:border-[#c5a059] transition-all duration-200 outline-none"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              className={`w-full bg-transparent border-2 ${errors.phone ? 'border-red-400' : 'border-gray-100'} rounded-xl px-4 py-3 md:py-4 text-[#1a1a1a] placeholder-transparent peer focus:border-[#c5a059] transition-all duration-200 outline-none`}
               placeholder="Phone number"
-              required
             />
             <label 
               htmlFor="phone"
@@ -127,18 +219,20 @@ const ContactFormSection: React.FC = () => {
             >
               Phone number
             </label>
+            {errors.phone && <p className="text-red-500 text-[10px] mt-1 ml-1">{errors.phone}</p>}
           </div>
         </div>
 
         <div className="relative">
           <textarea
             id="message"
+            name="message"
             rows={4}
             value={formData.message}
-            onChange={(e) => setFormData({...formData, message: e.target.value})}
-            className="w-full bg-transparent border-2 border-gray-100 rounded-xl px-4 py-3 md:py-4 text-[#1a1a1a] placeholder-transparent peer focus:border-[#c5a059] transition-all duration-200 outline-none resize-none"
+            onChange={handleChange}
+            onBlur={handleBlur}
+            className={`w-full bg-transparent border-2 ${errors.message ? 'border-red-400' : 'border-gray-100'} rounded-xl px-4 py-3 md:py-4 text-[#1a1a1a] placeholder-transparent peer focus:border-[#c5a059] transition-all duration-200 outline-none resize-none`}
             placeholder="Describe your requirements"
-            required
           />
           <label 
             htmlFor="message"
@@ -148,10 +242,12 @@ const ContactFormSection: React.FC = () => {
           >
             Describe your requirements
           </label>
+          {errors.message && <p className="text-red-500 text-[10px] mt-1 ml-1">{errors.message}</p>}
         </div>
 
         <button
-          type="submit"
+          onClick={handleSubmit}
+          type="button"
           className="w-full py-4 md:py-5 bg-[#1a1a1a] hover:bg-[#c5a059] text-white font-black text-xs md:text-sm uppercase tracking-[0.3em] rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-[1.01] flex items-center justify-center gap-3"
         >
           <span>Initiate Dialogue</span>
@@ -163,62 +259,11 @@ const ContactFormSection: React.FC = () => {
         <p className="text-center text-[10px] text-gray-400 uppercase tracking-widest font-bold">
           Strictly Confidential Sourcing Dialogue
         </p>
-      </form>
+      </div>
     </div>
   );
 };
 
-const MapSection: React.FC = () => {
-  // Using a search-based embed with iwloc=near to suppress default info windows
-  const query = encodeURIComponent("JAIN TRADERS, PARPODI, Bemetara, Chhattisgarh 491993");
-  const embedUrl = `https://www.google.com/maps?q=${query}&output=embed&z=15&iwloc=near`;
-  const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${query}`;
-  
-  return (
-    <section className="relative w-full h-full bg-[#f4f4f4]">
-      <div className="absolute inset-0 z-0">
-        <iframe 
-          src={embedUrl}
-          className="w-full h-full transition-opacity duration-500"
-          style={{ border: 0 }}
-          allowFullScreen
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-          title="Jain Traders Location"
-        ></iframe>
-      </div>
-      
-      {/* Floating Info Card - Positioned carefully to stay visible */}
-      <div className="absolute top-8 left-1/2 md:left-8 -translate-x-1/2 md:translate-x-0 z-10 w-[90%] max-w-[280px] md:max-w-[320px]">
-        <div className="bg-white p-5 md:p-6 rounded-xl md:rounded-2xl shadow-[0_20px_40px_rgba(0,0,0,0.15)] md:shadow-[0_40px_80px_rgba(0,0,0,0.2)] border border-gray-100 transition-all hover:scale-[1.02] duration-300">
-          <div className="flex items-center gap-3 md:gap-4 mb-4">
-            <div className="w-10 h-10 md:w-12 md:h-12 bg-[#1a1a1a] rounded-lg md:rounded-xl flex items-center justify-center text-[#c5a059] italic serif text-xl md:text-2xl font-bold shadow-md flex-shrink-0">J</div>
-            <div className="min-w-0">
-              <h4 className="text-sm md:text-base font-bold text-[#1a1a1a] truncate">Jain Traders</h4>
-              <p className="text-[10px] md:text-[11px] text-[#c5a059] font-black uppercase tracking-[0.1em] truncate">Quality that ships</p>
-            </div>
-          </div>
-          
-          <div className="text-xs md:text-sm text-gray-800 font-medium space-y-1 md:space-y-2 mb-5 border-l-2 border-[#c5a059] pl-3 md:pl-4">
-            <p className="font-bold text-[#1a1a1a] uppercase tracking-wider text-[10px] md:text-[11px]">Parpodi Facility</p>
-            <p className="leading-relaxed">Main Market Area</p>
-            <p>Bemetara, Chhattisgarh 491993</p>
-          </div>
-          
-          <a 
-            href={mapsUrl} 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2 md:gap-3 w-full py-3 md:py-4 bg-[#1a1a1a] text-white text-[10px] md:text-[11px] font-black uppercase tracking-[0.2em] rounded-lg md:rounded-xl group hover:bg-[#c5a059] transition-all duration-300"
-          >
-            <span>Navigate Now</span>
-            <svg className="w-3 h-3 md:w-4 md:h-4 group-hover:translate-x-1 transition-transform flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"/></svg>
-          </a>
-        </div>
-      </div>
-    </section>
-  );
-};
 
 const FAQItem: React.FC<{ question: string; answer: string }> = ({ question, answer }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -316,46 +361,6 @@ const Contact: React.FC = () => {
             {/* Right Content - Form */}
             <div className="w-full max-w-xl mx-auto lg:mx-0">
               <ContactFormSection />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Map Section - Adjusted Height and Width Ratio */}
-      <section className="py-16 md:py-24 bg-white">
-        <div className="max-w-[1440px] mx-auto px-4 md:px-6">
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-            {/* Wider Map Section with lesser height */}
-            <div className="lg:col-span-7 relative h-[450px] md:h-[550px] rounded-3xl overflow-hidden shadow-[0_30px_60px_rgba(0,0,0,0.08)] border border-gray-100">
-              <MapSection />
-            </div>
-            
-            {/* Narrower Content Section beside the map */}
-            <div className="lg:col-span-5 flex flex-col justify-center px-4 lg:px-8">
-              <span className="text-[#c5a059] uppercase tracking-[0.3em] md:tracking-[0.5em] text-[11px] font-black mb-4 md:mb-6 block">Global Presence</span>
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold serif text-[#1a1a1a] mb-6 md:mb-10 leading-none">Heritage <br />Headquarters.</h2>
-              
-              <div className="space-y-8 md:space-y-10">
-                <div className="group">
-                  <h4 className="text-xl md:text-2xl font-bold text-[#1a1a1a] mb-4 md:mb-5 serif border-b border-[#c5a059]/20 pb-2 inline-block">Registered Office</h4>
-                  <div className="text-gray-600 text-lg md:text-xl font-medium leading-relaxed space-y-1">
-                    <p className="text-[#1a1a1a]">Jain Traders</p>
-                    <p>Parpodi, Main Market Area</p>
-                    <p>Bemetara, Chhattisgarh 491993</p>
-                    <p className="font-bold text-[#c5a059] mt-2">India</p>
-                  </div>
-                </div>
-                
-                <div className="flex gap-5 md:gap-6 items-center bg-[#fcfcfc] p-6 md:p-8 rounded-3xl border border-gray-100 shadow-sm">
-                  <div className="w-12 h-12 md:w-14 md:h-14 flex-shrink-0 rounded-full bg-white flex items-center justify-center text-[#c5a059] shadow-inner border border-gray-50">
-                    <svg className="w-6 h-6 md:w-7 md:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                  </div>
-                  <div>
-                    <h4 className="text-base md:text-lg font-bold text-[#1a1a1a] mb-0.5 serif">Availability</h4>
-                    <p className="text-gray-500 text-sm md:text-base font-medium">Mon-Sat: 09:00 — 18:00 IST</p>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
