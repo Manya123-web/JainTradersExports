@@ -153,17 +153,6 @@ const Contact: React.FC = () => {
               <span className="text-[#c5a059] uppercase tracking-[0.3em] md:tracking-[0.5em] text-[10px] md:text-[11px] font-black mb-4 md:mb-6 block">Insight Center</span>
               <h2 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold serif text-[#1a1a1a] mb-4 md:mb-8 leading-[1.1]">Common <br />Queries.</h2>
               <p className="text-gray-700 text-lg md:text-xl lg:text-2xl font-medium mb-8 md:mb-12 leading-relaxed italic serif">Explore details about our trade standards and supply chain logistics.</p>
-              
-              <div className="relative group max-w-sm">
-                <input 
-                  type="email" 
-                  placeholder="Official Email" 
-                  className="w-full bg-white border-2 border-transparent border-b-gray-400 py-4 md:py-6 px-3 md:px-4 outline-none focus:border-b-[#c5a059] transition-all duration-300 text-lg md:text-xl font-medium serif text-[#1a1a1a]"
-                />
-                <button className="mt-6 md:mt-8 px-8 md:px-12 py-4 md:py-5 bg-[#1a1a1a] text-white text-[9px] md:text-[10px] uppercase font-black tracking-[0.3em] md:tracking-[0.4em] rounded-full hover:bg-[#c5a059] transition-all duration-300 shadow-xl">
-                  Quick Inquiry
-                </button>
-              </div>
             </div>
 
             <div className="lg:col-span-7">
