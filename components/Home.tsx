@@ -272,7 +272,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
             <div className="relative lg:sticky lg:top-32">
               <div className="aspect-[16/9] md:aspect-[4/3] lg:aspect-[4/5] overflow-hidden rounded-[3rem] md:rounded-[4rem] shadow-2xl group cursor-crosshair border border-white/5 bg-[#1a1a1a]">
                 <img 
-                  src="https://images.unsplash.com/photo-1586201375761-83865001e31c?q=80&w=2070"
+                  src="https://images.unsplash.com/photo-1672552226604-4ab36b7e5ca6?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                   alt="Global Supply Chain Logistics Network" 
                   className="w-full h-full object-cover opacity-90 transition-transform duration-700 group-hover:scale-105"
                 />
