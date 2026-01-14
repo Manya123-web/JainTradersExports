@@ -4,7 +4,7 @@ import React from 'react';
 const MapSection: React.FC = () => {
   // Using a search-based query for reliability
   const query = encodeURIComponent("JAIN TRADERS, PARPODI, Bemetara, Chhattisgarh 491993");
-  const embedUrl = `https://www.google.com/maps?q=${query}&output=embed&z=15`;
+  const embedUrl = `https://www.google.com/maps?q=${query}&output=embed&z=15&iwloc=near&disableDefaultUI=1`;
   const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${query}`;
 
   return (
