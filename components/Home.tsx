@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
+import tradeImg from '../assets/images/homePg.jpg';
 
 interface HomeProps {
   onNavigate: (page: 'home' | 'about' | 'contact') => void;
@@ -273,7 +274,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
             <div className="relative lg:sticky lg:top-32">
               <div className="aspect-[16/9] md:aspect-[4/3] lg:aspect-[4/5] overflow-hidden rounded-[3rem] md:rounded-[4rem] shadow-2xl group cursor-crosshair border border-white/5 bg-[#1a1a1a]">
                 <img 
-                  src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?q=80&w=2070" 
+                  src={tradeImg}
                   alt="Global Supply Chain Logistics Network" 
                   className="w-full h-full object-cover opacity-90 transition-transform duration-700 group-hover:scale-105"
                 />
