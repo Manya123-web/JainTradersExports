@@ -27,11 +27,11 @@ const CorporateSection: React.FC = () => {
                   </div>
                   <span className="font-medium">+91 62613 54272</span>
                 </a>
-                <a href="mailto:Raja.lodha6261@gmail.com" className="flex items-center gap-4 text-[#1a1a1a] hover:text-[#c5a059] transition-colors group">
+                <a href="mailto:jaintradersexports@gmail.com" className="flex items-center gap-4 text-[#1a1a1a] hover:text-[#c5a059] transition-colors group">
                   <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center group-hover:bg-[#c5a059] group-hover:text-white transition-all">
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                   </div>
-                  <span className="font-medium">Raja.lodha6261@gmail.com</span>
+                  <span className="font-medium">jaintradersexports@gmail.com</span>
                 </a>
               </div>
             </div>

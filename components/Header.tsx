@@ -109,13 +109,13 @@ const Header: React.FC<HeaderProps> = ({ currentPage, onNavigate }) => {
                 <p className="text-[#c5a059] text-[9px] tracking-[0.4em] font-black uppercase mb-4">Direct Communication</p>
                 <div className="space-y-3">
                   <a 
-                    href="mailto:Raja.lodha6261@gmail.com" 
+                    href="mailto:jaintradersexports@gmail.com" 
                     className="flex items-center gap-3 text-white/80 hover:text-[#c5a059] transition-colors group"
                   >
                     <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-[#c5a059] group-hover:text-black transition-all">
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                     </div>
-                    <span className="text-sm font-medium">Raja.lodha6261@gmail.com</span>
+                    <span className="text-sm font-medium">jaintradersexports@gmail.com</span>
                   </a>
                   <a 
                     href="tel:+916261354272" 

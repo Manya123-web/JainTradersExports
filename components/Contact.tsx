@@ -67,7 +67,7 @@ const Contact: React.FC = () => {
               
               {/* Contact Info Cards */}
               <div className="grid sm:grid-cols-2 gap-4 md:gap-6 max-w-2xl mx-auto lg:mx-0">
-                <a href="mailto:Raja.lodha6261@gmail.com" className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl md:rounded-2xl p-5 md:p-6 hover:bg-white/10 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(197,160,89,0.3)] transition-all duration-300 group">
+                <a href="mailto:jaintradersexports@gmail.com" className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl md:rounded-2xl p-5 md:p-6 hover:bg-white/10 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(197,160,89,0.3)] transition-all duration-300 group">
                   <div className="flex items-center gap-3 mb-3">
                     <div className="w-10 h-10 rounded-full bg-[#c5a059]/20 flex items-center justify-center group-hover:bg-[#c5a059]/30 group-hover:scale-110 transition-all duration-300">
                       <svg className="w-5 h-5 text-[#c5a059] group-hover:rotate-12 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -77,7 +77,7 @@ const Contact: React.FC = () => {
                     <span className="text-xs uppercase tracking-wider font-bold text-[#c5a059]">Email</span>
                   </div>
                   <span className="text-white text-sm md:text-base font-medium group-hover:text-[#c5a059] transition-colors break-all block">
-                    Raja.lodha6261@gmail.com
+                    jaintradersexports@gmail.com
                   </span>
                 </a>
 

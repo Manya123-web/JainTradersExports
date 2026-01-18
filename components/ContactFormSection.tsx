@@ -107,7 +107,7 @@ const ContactFormSection: React.FC = () => {
         `This inquiry was submitted through the Jain Traders contact form.`
       );
       
-      window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=Raja.lodha6261@gmail.com&su=${subject}&body=${body}`, '_blank');
+      window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=jaintradersexports@gmail.com&su=${subject}&body=${body}`, '_blank');
     }
   };
 
