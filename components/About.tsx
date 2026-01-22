@@ -1,6 +1,7 @@
 
 import React from 'react';
-import rajaImage from '../assets/images/raja_jain.png';
+import kamleshImage from "../assets/images/kamlesh_jain.jpeg";
+import rajaImage from '../assets/images/raja_jain.jpeg';
 
 interface AboutProps {
   onNavigate?: (page: 'home' | 'about' | 'contact') => void;
@@ -136,7 +137,7 @@ const About: React.FC<AboutProps> = ({ onNavigate }) => {
             <div className="group space-y-6">
               <div className="relative aspect-square overflow-hidden rounded-[1.5rem] md:rounded-[2.5rem] shadow-lg transition-all duration-700 group-hover:shadow-2xl">
                 <img 
-                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1974" 
+                  src={kamleshImage} 
                   alt="Mr. Kamlesh Jain" 
                   loading="lazy"
                   className="w-full h-full object-cover grayscale brightness-90 transition-all duration-1000 group-hover:grayscale-0 group-hover:scale-105 group-hover:brightness-100"
