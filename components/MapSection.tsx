@@ -1,12 +1,8 @@
 import React from "react";
 
 const MapSection: React.FC = () => {
-  const query = encodeURIComponent(
-    "JAIN TRADERS, PARPODI, Bemetara, Chhattisgarh 491993"
-  );
-
-  const embedUrl = `https://www.google.com/maps?q=${query}&output=embed&z=15&iwloc=near&disableDefaultUI=1`;
-  const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${query}`;
+  const embedUrl = "https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3710.00202683482!2d81.20203017527214!3d21.5858439802065!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjHCsDM1JzA5LjAiTiA4McKwMTInMTYuNiJF!5e0!3m2!1sen!2sin!4v1769421185330!5m2!1sen!2sin";
+  const mapsUrl = "https://maps.app.goo.gl/PnPet1BNj4kLf4TG9";
 
   return (
     <section className="relative w-full h-full bg-[#f4f4f4] overflow-hidden">
