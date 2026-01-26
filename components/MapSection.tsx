@@ -45,9 +45,9 @@ const MapSection: React.FC = () => {
           {/* Address */}
           <div className="border-l-2 border-[#c5a059] pl-3 mb-3 space-y-0.5 text-xs font-medium text-gray-700">
             <p className="uppercase tracking-wide text-[10px] font-bold text-[#1a1a1a]">
-              Parpodi Facility
+              Parpodi
             </p>
-            <p>Main Market Area</p>
+            <p>Parpodi</p>
             <p>Bemetara, Chhattisgarh 491993</p>
           </div>
 

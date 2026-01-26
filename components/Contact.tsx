@@ -124,7 +124,7 @@ const Contact: React.FC = () => {
                   <h4 className="text-xl md:text-2xl font-bold text-[#1a1a1a] mb-4 md:mb-5 serif border-b border-[#c5a059]/20 pb-2 inline-block">Registered Office</h4>
                   <div className="text-gray-600 text-lg md:text-xl font-medium leading-relaxed space-y-1">
                     <p className="text-[#1a1a1a]">Jain Traders</p>
-                    <p>Parpodi, Main Market Area</p>
+                    <p>Parpodi, Parpodi</p>
                     <p>Bemetara, Chhattisgarh 491993</p>
                     <p className="font-bold text-[#c5a059] mt-2">India</p>
                   </div>
